@@ -1,0 +1,32 @@
+.form_container {
+  width: 30%;
+  background-image: linear-gradient(to right, rgb(127, 168, 168), rgb(16, 70, 63) );
+}
+
+.playlistform{
+  width: 30%;
+  background-image: linear-gradient(to right, rgb(184, 202, 202), rgb(20, 125, 111) );
+}
+
+.crud{
+  width: 50%;
+  background-image: linear-gradient(to right, rgb(184, 202, 202), rgb(20, 125, 111) );
+}
+
+.test{
+  width: 50%;
+}
+
+
+@media screen and (max-width: 1000px) {
+  .form_container {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .form_container {
+    width: 65%;
+  }
+}
+
