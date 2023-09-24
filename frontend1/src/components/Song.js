@@ -7,15 +7,15 @@ export default function Song({ song }) {
   });
 
   return (
-    <tr>
+    <tr style={{ backgroundColor: '#43DABD !important', color: '#000000 !important'}}>
       <td className="col-md-3" scope="row">
         {song.name}
       </td>
-      <td className="col-md-3">{song.artist}</td>
+      <td  className="col-md-3">{song.artist}</td>
       <td className="col-md-3"> {song.genre}</td>
       <td className="col-md-3">
         <audio controls>
-          <source src={song.songUrl} type="audio/mpeg"></source>
+          <source src= {song.songUrl} type="audio/mpeg"></source>
         </audio>
       </td>
       <td className="col-md-3">

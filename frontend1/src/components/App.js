@@ -1,5 +1,5 @@
 import "../App.css";
-import logo from "./images/logo512.png";
+import logo from "./images/beats-logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import LoginPage from "../pages/LoginPage";

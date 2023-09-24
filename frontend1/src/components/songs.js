@@ -21,13 +21,13 @@ export default function Songs() {
         <div className="row justify-content-center">
           <table className="table table-striped w-auto">
             <thead className="thead-dark">
-              <tr>
-                <th scope="col ">Name</th>
-                <th scope="col">Artist</th>
-                <th scope="col">Genre</th>
-                <th scope="col">SongURL</th>
-                <th scope="col">Update/Delete</th>
-              </tr>
+            <tr>
+              <th scope="col" style={{ backgroundColor: '#8BF032', color: '#000000' }}>Name</th>
+              <th scope="col" style={{ backgroundColor: '#8BF032', color: '#000000' }}>Artist</th>
+              <th scope="col" style={{ backgroundColor: '#8BF032', color: '#000000' }}>Genre</th>
+              <th scope="col" style={{ backgroundColor: '#8BF032', color: '#000000' }}>Player</th>
+              <th scope="col" style={{ backgroundColor: '#8BF032', color: '#000000' }}>Update/Delete</th>
+            </tr>
             </thead>
             <tbody>
               {store.songs &&
