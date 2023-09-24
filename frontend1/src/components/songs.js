@@ -1,6 +1,7 @@
 import songsStore from "../stores/songsStore";
 import Song from "./Song";
 import "./style.css";
+import Search from "./Search";
 
 export default function Songs() {
   const store = songsStore();
@@ -15,12 +16,18 @@ export default function Songs() {
         align-items-center
         vh-100"
       >
-        <div className="p-4"
-        >
-          <div className="bg-secondary bg-gradient p-2 text-dark bg-opacity-75 rounded-3"
-          >
-          <h2 className="text-light ">Songs: </h2>
+        <div className="p-5">
           
+          <div className="bg-secondary bg-gradient p-2 text-dark bg-opacity-75 rounded-3">
+          <div
+            className="position-absolute
+            
+        top-0 start-50 translate-middle-x
+        p-1"
+          >
+            <Search />
+          </div>
+            <h2 className="text-light ">Songs: </h2>
           </div>
         </div>
         <div className="bg-secondary bg-gradient p-2 text-dark bg-opacity-75 rounded-3">
