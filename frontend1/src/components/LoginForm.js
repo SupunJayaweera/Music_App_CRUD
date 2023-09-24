@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from "./images/beats-logo.png";
+import logo from "./images/logo1.png";
 import { Link, useNavigate } from "react-router-dom";
 import authStore from "../stores/authStore";
 import "./style.css";

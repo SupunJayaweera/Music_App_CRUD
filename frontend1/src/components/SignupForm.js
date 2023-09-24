@@ -1,6 +1,6 @@
 import authStore from "../stores/authStore";
 import React, { useState, useEffect } from "react";
-import logo from "./images/beats-logo.png";
+import logo from "./images/logo1.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import image2 from "../components/images/music2.jpg";
@@ -48,8 +48,7 @@ export default function SignupForm() {
     // }
     if (!store.signupForm.password) {
       errors.password = "password is required";
-    } 
-    else if (values.signupForm.password.length < 8) {
+    } else if (values.signupForm.password.length < 8) {
       errors.password = "Password must be more than 4 characters";
     } else if (values.signupForm.password.length > 20) {
       errors.password = "Password cannot exceed more than 20 characters";

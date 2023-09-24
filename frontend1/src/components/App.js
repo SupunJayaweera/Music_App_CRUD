@@ -1,5 +1,5 @@
 import "../App.css";
-import logo from "./images/beats-logo.png";
+import logo from "./images/logo1.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import LoginPage from "../pages/LoginPage";
@@ -16,10 +16,13 @@ function App() {
   return (
     <div className="App ">
       <BrowserRouter>
-        <div className="position-absolute top-0 start-0 p-1">
-          <button className="btn btn-lg">
+        <div className="position-absolute 
+        top-0 start-0 p-1">
+          <button className="btn">
             <Link className="link-dark" to="/">
-              <img className="App-logo mb-4 " src={logo} alt="logo" />
+              <img className="App-logo mb-4 "
+               style={{ width: "100px", height: "100px", float: "left" }} 
+               src={logo} alt="logo" />
             </Link>
           </button>
         </div>

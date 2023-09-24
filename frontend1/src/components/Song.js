@@ -7,7 +7,7 @@ export default function Song({ song }) {
   });
 
   return (
-    <tr style={{ backgroundColor: '#43DABD !important', color: '#000000 !important'}}>
+    <tr>
       <td className="col-md-3" scope="row">
         {song.name}
       </td>
@@ -31,7 +31,7 @@ export default function Song({ song }) {
 
           <div className="d-inline-block p-2">
             <button
-              className="btn btn-info margin-left "
+              className="btn btn-success margin-left "
               onClick={() => store.updateSong(song)}
             >
               Update
