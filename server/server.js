@@ -8,7 +8,7 @@ const express = require("express");
 const connectToDb = require("./config/connectToDb");
 const songsController = require("./controllers/songsController");
 const usersController = require("./controllers/usersController");
-
+const Song = require('./models/song'); 
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const requireAuth = require("./middleware/requireAuth");
@@ -34,6 +34,18 @@ app.post("/signup", usersController.signup);
 app.post("/login", usersController.login);
 app.get("/logout", usersController.logout);
 app.get("/check-auth", requireAuth, usersController.checkAuth);
+
+app.get('/search', async (req, res) => {
+  const { query } = req.query;
+
+  try {
+    const searchResults = await Song.searchSongs(query);
+    res.json(searchResults);
+  } catch (error) {
+    console.error('Error searching:', error);
+    res.status(500).json({ error: 'An error occurred while searching.' });
+  }
+});
 
 app.get("/songs", requireAuth, songsController.fetchSongs);
 app.get("/songs/:id", requireAuth, songsController.fetchSong);

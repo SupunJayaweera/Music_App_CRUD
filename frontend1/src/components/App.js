@@ -8,22 +8,30 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import RequireAuth from "./RequireAuth";
 import SignupPage from "../pages/SignupPage";
 import LogoutPage from "../pages/LogoutPage";
-
+import Search from './Search';
 
 
 
 function App() {
   return (
     <div className="App ">
+       <div className="position-absolute
+        top-0 start-50 translate-middle-x
+        p-5">
+      <Search />
+      {/* Other components and content */}
+    </div>
       <BrowserRouter>
         <div className="position-absolute 
         top-0 start-0 p-1">
           <button className="btn">
             <Link className="link-dark" to="/">
               <img className="App-logo mb-4 "
-               style={{ width: "100px", height: "100px", float: "left" }} 
+               style={{ width: "100px", height: "100px",
+                float: "left" }} 
                src={logo} alt="logo" />
             </Link>
+            
           </button>
         </div>
 

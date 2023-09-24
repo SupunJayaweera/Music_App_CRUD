@@ -15,11 +15,12 @@ export default function Songs() {
         align-items-center
         vh-100"
       >
-        <div className="p-4 "
+        <div className="p-4"
         >
           <div className="bg-secondary bg-gradient p-2 text-dark bg-opacity-75 rounded-3"
           >
           <h2 className="text-light ">Songs: </h2>
+          
           </div>
         </div>
         <div className="bg-secondary bg-gradient p-2 text-dark bg-opacity-75 rounded-3">
@@ -35,31 +36,31 @@ export default function Songs() {
                 <tr>
                   <th
                     scope="col"
-                    style={{ backgroundColor: "#8BF032", color: "#000000" }}
+                    className="bg-success p-2 text-white bg-opacity-50"
                   >
                     Name
                   </th>
                   <th
                     scope="col"
-                    style={{ backgroundColor: "#8BF032", color: "#000000" }}
+                    className="bg-success p-2 text-white bg-opacity-50"
                   >
                     Artist
                   </th>
                   <th
                     scope="col"
-                    style={{ backgroundColor: "#8BF032", color: "#000000" }}
+                    className="bg-success p-2 text-white bg-opacity-50"
                   >
                     Genre
                   </th>
                   <th
                     scope="col"
-                    style={{ backgroundColor: "#8BF032", color: "#000000" }}
+                    className="bg-success p-2 text-white bg-opacity-50"
                   >
                     Music Player
                   </th>
                   <th
                     scope="col"
-                    style={{ backgroundColor: "#8BF032", color: "#000000" }}
+                    className="bg-success p-2 text-white bg-opacity-50"
                   >
                     Update/Delete
                   </th>
