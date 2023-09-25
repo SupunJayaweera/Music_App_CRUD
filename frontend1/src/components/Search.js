@@ -22,24 +22,50 @@ function Search() {
 
   const handleSuggestionClick = (suggestion) => {
     setSearchQuery(suggestion.name);
-    setSearchResults([]);
+    setSuggestions([]); // Clear all suggestions
   };
+  
 
   // Implement auto-suggestions logic here
   const handleAutoSuggestions = async (inputValue) => {
-    setSearchQuery(inputValue); // Set the search query as you type
+    setSearchQuery(inputValue);
+  
     if (!inputValue.trim()) {
       setSuggestions([]); // Clear suggestions if the input is empty
       return;
     }
-
+  
     try {
       const response = await axios.get(`search?query=${inputValue}`);
-      setSuggestions(response.data); // Set suggestions based on the input value
+      const fetchedSuggestions = response.data;
+  
+      // Filter and keep only suggestions that contain the matching text
+      const filteredSuggestions = fetchedSuggestions.filter((suggestion) =>
+        suggestion.name.toLowerCase().includes(inputValue.toLowerCase())
+      );
+  
+      // Sort filtered suggestions based on matching text
+      const sortedSuggestions = filteredSuggestions.sort((a, b) => {
+        const aMatch = a.name.toLowerCase().includes(inputValue.toLowerCase());
+        const bMatch = b.name.toLowerCase().includes(inputValue.toLowerCase());
+  
+        if (aMatch && !bMatch) {
+          return -1;
+        } else if (!aMatch && bMatch) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+  
+      setSuggestions(sortedSuggestions);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
     }
   };
+  
+  
+  
 
   // Add an event listener to detect clicks outside the search container
   useEffect(() => {
