@@ -16,20 +16,15 @@ export default function Songs() {
         align-items-center
         vh-100"
       >
-        <div className="p-5">
-          
-          <div className="bg-secondary bg-gradient p-2 text-dark bg-opacity-75 rounded-3">
-          <div
-            className="position-absolute
-            
-        top-0 start-50 translate-middle-x
-        p-1"
-          >
-            <Search />
-          </div>
-            <h2 className="text-light ">Songs: </h2>
+        <div className="p-5 mx-auto text-center">
+          <div className="bg-gradient p-2 text-dark bg-opacity-75 rounded-3 w-50 p-2 d-flex justify-content-center">
+            <div className="position-absolute top-0 start-50 translate-middle-x p-2">
+              <Search />
+            </div >
+            <h2 className="text-light">Songs: </h2>
           </div>
         </div>
+
         <div className="bg-secondary bg-gradient p-2 text-dark bg-opacity-75 rounded-3">
           <div
             className="row justify-content-center

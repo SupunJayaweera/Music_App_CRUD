@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import MusicPlayerPopup from "./MusicPlayerPopup";
 
 function Search() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+  const [selectedResult, setSelectedResult] = useState(null);
   const searchContainerRef = useRef(null); // Added state for suggestions
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) {
       return;
     }
-
+    setSuggestions([]);
     try {
       const response = await axios.get(`search?query=${searchQuery}`);
       setSearchResults(response.data);
@@ -24,31 +26,30 @@ function Search() {
     setSearchQuery(suggestion.name);
     setSuggestions([]); // Clear all suggestions
   };
-  
 
   // Implement auto-suggestions logic here
   const handleAutoSuggestions = async (inputValue) => {
     setSearchQuery(inputValue);
-  
+
     if (!inputValue.trim()) {
       setSuggestions([]); // Clear suggestions if the input is empty
       return;
     }
-  
+
     try {
       const response = await axios.get(`search?query=${inputValue}`);
       const fetchedSuggestions = response.data;
-  
+
       // Filter and keep only suggestions that contain the matching text
       const filteredSuggestions = fetchedSuggestions.filter((suggestion) =>
         suggestion.name.toLowerCase().includes(inputValue.toLowerCase())
       );
-  
+
       // Sort filtered suggestions based on matching text
       const sortedSuggestions = filteredSuggestions.sort((a, b) => {
         const aMatch = a.name.toLowerCase().includes(inputValue.toLowerCase());
         const bMatch = b.name.toLowerCase().includes(inputValue.toLowerCase());
-  
+
         if (aMatch && !bMatch) {
           return -1;
         } else if (!aMatch && bMatch) {
@@ -57,25 +58,34 @@ function Search() {
           return 0;
         }
       });
-  
+
       setSuggestions(sortedSuggestions);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
     }
   };
-  
-  
-  
+
+  const handleResultClick = (result) => {
+    setSelectedResult(result); // Set the selected result when a result is clicked
+  };
 
   // Add an event listener to detect clicks outside the search container
   useEffect(() => {
+    console.log("useEffect is running");
+
     const handleClickOutside = (event) => {
+      console.log("searchContainerRef.current:", searchContainerRef.current);
+      console.log("event.target:", event.target);
+      if (event.target != null) {
+        // event.target.style.display = "none";
+      }
       if (
         searchContainerRef.current &&
         !searchContainerRef.current.contains(event.target)
       ) {
-        // Clicked outside the search container, clear the search results
-        setSearchResults([]);
+        // Clicked outside the search container, clear the suggestions
+        setSuggestions([]);
+        //setSearchResults([]);
       }
     };
 
@@ -90,7 +100,7 @@ function Search() {
 
   return (
     <div>
-      <div className="container">
+      <div className="container" ref={searchContainerRef}>
         <form className="d-flex justify-content-between">
           <input
             className="form-control mr-sm-2"
@@ -132,18 +142,22 @@ function Search() {
 
       {/* Display search results */}
       {searchResults.map((result) => (
-        <div className="bg-success bg-gradient p-2 text-dark bg-opacity-75 rounded-3">
-          <ul>
-            <a
-              className="text-light"
-              key={result._id}
-              href={`/song/${result._id}`} // Replace with the appropriate URL
-            >
-              {result && result.name}
-            </a>
-          </ul>
+        <div
+          className="bg-success bg-gradient p-2 text-dark bg-opacity-75 rounded-3"
+          key={result._id}
+          onClick={() => handleResultClick(result)} // Handle result click
+        >
+          <ul>{result && result.name}</ul>
         </div>
       ))}
+
+      {/* Display the MusicPlayerPopup when a result is selected */}
+      {selectedResult && (
+        <MusicPlayerPopup
+          songUrl={selectedResult.songUrl}
+          onClose={() => setSelectedResult(null)} // Add a close handler
+        />
+      )}
     </div>
   );
 }

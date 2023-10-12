@@ -8,24 +8,27 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import RequireAuth from "./RequireAuth";
 import SignupPage from "../pages/SignupPage";
 import LogoutPage from "../pages/LogoutPage";
+import Header from "./Header";
+import Footer from "./Footer";
 
 function App() {
   return (
     <div className="App ">
+      <Header />
       <BrowserRouter>
         <div
           className="position-absolute 
-        top-0 start-0 p-1"
+        top-0 end-0 p-1"
         >
           <button className="btn">
-            <Link className="link-dark" to="/">
+            
               <img
                 className="App-logo mb-4 "
-                style={{ width: "110px", height: "110px", float: "left" }}
+                style={{ width: "110px", height: "110px", float: "right" }}
                 src={logo}
                 alt="logo"
               />
-            </Link>
+            
           </button>
         </div>
 
@@ -35,13 +38,13 @@ function App() {
           <li>
             <Link to="/signup">Signup</Link>
           </li> */}
-        <div className="position-absolute top-0 end-0 p-4">
+        {/* <div className="position-absolute top-0 end-0 p-4">
           <button className="btn btn-danger ">
             <Link className="link-dark" to="/logout">
               LOGOUT
             </Link>
           </button>
-        </div>
+        </div> */}
 
         <Routes>
           <Route
@@ -58,6 +61,7 @@ function App() {
           <Route path="/logout" element={<LogoutPage />} />
         </Routes>
       </BrowserRouter>
+      <Footer />
     </div>
   );
 }

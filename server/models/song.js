@@ -16,8 +16,7 @@ songSchema.statics.searchSongs = async function (query) {
     return await this.find({
       $or: [
         { name: { $regex: query, $options: "i" } }, // Case-insensitive search
-        { artist: { $regex: query, $options: "i" } },
-        { genre: { $regex: query, $options: "i" } },
+        
       ],
     });
   } catch (error) {
