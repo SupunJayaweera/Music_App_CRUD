@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import MusicPlayerPopup from "./MusicPlayerPopup";
+// import MusicPlayerPopup from "./MusicPlayerPopup";
+import player from "./images/player.png";
+import image2 from "../components/images/music2.jpg";
 
 function Search() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -66,7 +68,66 @@ function Search() {
   };
 
   const handleResultClick = (result) => {
-    setSelectedResult(result); // Set the selected result when a result is clicked
+    // Create a new window for the audio player
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+    const windowWidth = 400; // Set your desired width
+    const windowHeight = 400; // Set your desired height
+
+    const left = (screenWidth - windowWidth) / 2;
+    const top = (screenHeight - windowHeight) / 2;
+
+    // Create a new window for the audio player
+    const audioPlayerWindow = window.open(
+      "",
+      "_blank",
+      `width=${windowWidth}, height=${windowHeight}, left=${left}, top=${top}`
+    );
+
+    // Define the content of the new window
+    const audioPlayerContent = `
+  <html>
+    <head>
+      <title>Audio Player</title>
+      <style>
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+          background-color: #9CDFC1
+        }
+        .music-popup {
+          text-align: center;
+          width: 85%;
+          
+        }
+        .album-cover {
+          max-width: 80%;
+          padding: 5px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="music-popup p-3">
+        <div class="music-popup-content p-3">
+        <img
+                class="album-cover "
+                src="${player}"
+                alt="player"
+              />
+        <audio controls>
+            <source src="${result.songUrl}" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+    </body>
+  </html>
+`;
+    setSearchResults([]);
+    // Write the content to the new window document
+    audioPlayerWindow.document.write(audioPlayerContent);
   };
 
   // Add an event listener to detect clicks outside the search container
@@ -85,7 +146,7 @@ function Search() {
       ) {
         // Clicked outside the search container, clear the suggestions
         setSuggestions([]);
-        //setSearchResults([]);
+        // setSearchResults([]);
       }
     };
 
@@ -152,12 +213,12 @@ function Search() {
       ))}
 
       {/* Display the MusicPlayerPopup when a result is selected */}
-      {selectedResult && (
+      {/* {selectedResult && (
         <MusicPlayerPopup
           songUrl={selectedResult.songUrl}
           onClose={() => setSelectedResult(null)} // Add a close handler
         />
-      )}
+      )} */}
     </div>
   );
 }

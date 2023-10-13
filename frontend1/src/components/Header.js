@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 
+
 const Header = () => {
   return (
     <header className="header">
-      <nav className="navbar navbar-expand-lg navbar-light bg-secondary bg-gradient text-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-dark bg-gradient text-light">
         <button
           className="navbar-toggler"
           type="button"
@@ -13,24 +14,25 @@ const Header = () => {
           aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          
         >
           
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="collapse navbar-collapse " id="navbarNav">
           <ul className="navbar-nav ">
-            <li className="nav-item">
+            <li className="nav-item ">
               <a className="nav-link" href="#">
-                About
+                <h6 className="text-light">About</h6>
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="http://localhost:3001/login">
-                Login
+              <h6 className="text-light">Login</h6>
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="http://localhost:3001/logout">
-                Logout
+              <h6 className="text-light">Logout</h6>
               </a>
             </li>
           </ul>
