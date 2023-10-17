@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import authStore from "../stores/authStore";
 import "../components/style.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import image1 from "../components/images/lMfmeO.jpg";
 
 export default function LogoutPage() {
@@ -21,13 +21,13 @@ export default function LogoutPage() {
     }}
     >
       <div className="position-absolute top-50 start-50 translate-middle text-light">
-        <h1>You are now logged out!</h1>
+        <h1 className="font-italic">You are now logged out!</h1>
         <div className="">
-          <button className="btn btn-primary ">
+          {/* <button className="btn btn-primary ">
             <Link className="link-light" to="/login">
               Login
             </Link>
-          </button>
+          </button> */}
         </div>
       </div>
       

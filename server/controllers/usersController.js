@@ -8,35 +8,55 @@ async function signup(req, res) {
     const { firstName, lastName, birthday, email, password } = req.body;
 
     // Hash password
-    const hashedPassword = bcrypt.hashSync(password, 8);
+    const hashedPassword = bcrypt.hashSync(password, 8); // 8 means how many times the encryption happen
+
+    // Check if any of the required parameters are missing
+    if (!firstName || !lastName || !birthday || !email || !password) {
+      throw new Error("One or more required input parameters are missing.");
+    }
+
     // Create a user with the data
-    await User.create({ firstName, lastName, birthday, email, password: hashedPassword });
+    await User.create({
+      firstName,
+      lastName,
+      birthday,
+      email,
+      password: hashedPassword,
+    });
 
     // respond
     res.sendStatus(200);
   } catch (err) {
-    console.log(err);
-    res.sendStatus(400);
+    console.error(err);
+    console.log(res.status(400));
+    //res.sendStatus(400);
   }
 }
 
 async function login(req, res) {
   try {
-    // Get the email and password off req body
+    // Get the email and password from the request body
     const { email, password } = req.body;
-    // find the user with requedsed email
+
+    // Find the user with the requested email
     const user = await User.findOne({ email });
-    console.log(user);
-    console.log(req.body);
-    if (!user) return res.sendStatus(401);
-    // Compare sent in password with found user password hash
+
+    if (!user) {
+      return res.status(401).json({ error: "Email or password is incorrect" });
+    }
+
+    // Compare sent-in password with the found user's password hash
     const passwordMatch = bcrypt.compareSync(password, user.password);
-    if (!passwordMatch) return res.sendStatus(401);
-    // create a JWT token
+
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Email or password is incorrect" });
+    }
+
+    // Create a JWT token
     const exp = Date.now() + 1000 * 60 * 60 * 24 * 30; // one month
     const token = jwt.sign({ sub: user._id, exp }, process.env.SECRET);
 
-    //send the cookie
+    // Send the cookie
     res.cookie("Authorization", token, {
       expires: new Date(exp),
       httpOnly: true,
@@ -44,11 +64,11 @@ async function login(req, res) {
       secure: process.env.NODE_ENV === "production",
     });
 
-    // send it
-    res.sendStatus(200);
+    // Send a success response
+    return res.sendStatus(200);
   } catch (err) {
     console.log(err);
-    res.sendStatus(400);
+    return res.sendStatus(400);
   }
 }
 

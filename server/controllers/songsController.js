@@ -104,11 +104,24 @@ const deleteSong = async (req, res) => {
   }
 };
 
+const searchSong = async (req, res) => {
+  const { query } = req.query;
+
+  try {
+    const searchResults = await Song.searchSongs(query);
+    res.json(searchResults);
+  } catch (error) {
+    console.error('Error searching:', error);
+    res.status(500).json({ error: 'An error occurred while searching.' });
+  }
+};
+
 module.exports = {
   fetchSongs: fetchSongs,
   fetchSong: fetchSong,
   createSong: createSong,
   updateSong: updateSong,
   deleteSong: deleteSong,
+  searchSong: searchSong,
 };
 // exporting all the functions

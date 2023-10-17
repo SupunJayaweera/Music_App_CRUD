@@ -9,43 +9,46 @@ export default function LoginForm() {
   const store = authStore();
   const navigate = useNavigate();
 
-  const [formErrors, setformErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({ email: "", password: "" });
   const [isSubmit, setIsSubmit] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setformErrors(validate(store));
-    setIsSubmit(true);
-    await store.login();
+    const errors = validate(store.loginForm);
+    setFormErrors(errors);
 
-    //Navigate
-    navigate("/");
+    if (Object.values(errors).every((error) => error === "")) {
+      try {
+        await store.login();
+
+        // Navigate on successful login
+        navigate("/");
+      } catch (error) {
+        // Handle login failure
+        setLoginError("Email or password is incorrect");
+      }
+    }
   };
 
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(store.loginForm);
-    }
-  }, [formErrors]);
-
   const validate = (values) => {
-    const errors = {};
+    const errors = {
+      email: "",
+      password: "",
+    };
+
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!store.loginForm.email) {
+
+    if (!values.email) {
       errors.email = "Email is required";
+    } else if (!regex.test(values.email)) {
+      errors.email = "Invalid email format";
     }
-    // else if (!regex.test(values.email)) {
-    //   errors.email = "This is not a valid email format!";
-    // }
-    if (!store.loginForm.password) {
-      errors.password = "password is required";
+
+    if (!values.password) {
+      errors.password = "Password is required";
     }
-    //  else if (values.password.length < 4) {
-    //   errors.password = "Password must be more than 4 characters";
-    // } else if (values.password.length > 20) {
-    //   errors.password = "Password cannot exceed more than 20 characters";
-    // }
+
     return errors;
   };
 
@@ -57,12 +60,12 @@ export default function LoginForm() {
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        height: "100vh", // Set the height of the container to the full viewport height
+        height: "100vh",
       }}
     >
       <div
-        className="login template d-flex justify-content-center align-items-center
-     vh-100 bg-brimary position-absolute top-50 start-50 translate-middle"
+        className="login template d-flex justify-content-center align-items-center vh-100
+         position-absolute top-50 start-50 translate-middle"
       >
         <div className="form_container p-5 rounded bg-white">
           <img className="App-logo mb-4" src={logo} alt="logo" />
@@ -78,7 +81,7 @@ export default function LoginForm() {
                 name="email"
               />
             </div>
-            <p className="text-warning">{formErrors.email}</p>
+            <p className="text-warning ">{formErrors.email}</p>
             <div className="mb-2">
               <input
                 className="form-control"
@@ -90,6 +93,7 @@ export default function LoginForm() {
               />
             </div>
             <p className="text-warning">{formErrors.password}</p>
+            <p className="text-warning">{loginError}</p>
             <div className="d-grid">
               <button className="btn btn-primary mb-4" type="submit">
                 Login

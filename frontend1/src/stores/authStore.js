@@ -70,6 +70,7 @@ const authStore = create((set) => ({
 
   signup: async () => {
     const { signupForm } = authStore.getState();
+    console.log(signupForm);
 
     const res = await axios.post("/signup", signupForm, {
       withCredentials: true,

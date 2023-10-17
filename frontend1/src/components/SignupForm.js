@@ -9,51 +9,59 @@ export default function SignupForm() {
   const store = authStore();
   const navigate = useNavigate();
 
-  const [formErrors, setformErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({
+    firstName: "",
+    lastName: "",
+    birthday: "",
+    email: "",
+    password: "",
+  });
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setformErrors(validate(store));
-    setIsSubmit(true);
-    await store.signup();
-    navigate("/login");
+    const errors = validate(store.signupForm);
+    setFormErrors(errors);
+
+    if (Object.values(errors).every((error) => error === "")) {
+      await store.signup();
+      navigate("/login");
+    }
   };
 
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(store.signupForm);
-    }
-  }, [formErrors]);
-
   const validate = (values) => {
-    const errors = {};
-    console.log(values);
+    const errors = {
+      firstName: "",
+      lastName: "",
+      birthday: "",
+      email: "",
+      password: "",
+    };
+
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!store.signupForm.firstName) {
+
+    if (!values.firstName) {
       errors.firstName = "First Name is required";
     }
-    if (!store.signupForm.lastName) {
+
+    if (!values.lastName) {
       errors.lastName = "Last Name is required";
     }
-    if (!store.signupForm.birthday) {
+
+    if (!values.birthday) {
       errors.birthday = "Birthday is required";
     }
-    if (!store.signupForm.email) {
+
+    if (!values.email) {
       errors.email = "Email is required";
+    } else if (!regex.test(values.email)) {
+      errors.email = "Invalid email format";
     }
-    // else if (!regex.test(values.email)) {
-    //   errors.email = "This is not a valid email format!";
-    // }
-    if (!store.signupForm.password) {
-      errors.password = "password is required";
-    } else if (values.signupForm.password.length < 8) {
-      errors.password = "Password must be more than 4 characters";
-    } else if (values.signupForm.password.length > 20) {
-      errors.password = "Password cannot exceed more than 20 characters";
+
+    if (!values.password) {
+      errors.password = "Password is required";
     }
-    console.log(errors);
+
     return errors;
   };
 
@@ -65,41 +73,45 @@ export default function SignupForm() {
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        height: "100vh", // Set the height of the container to the full viewport height
+        height: "100vh",
       }}
     >
       <div
-        className="login template d-flex 
-      justify-content-center position-absolute
-      align-items-center top-50 start-50 translate-middle 
-      vh-100 bg-brimary"
+        className="login template d-flex justify-content-center
+         position-absolute align-items-center top-50 start-50 translate-middle vh-100 "
       >
-        <div className="form_container p-5 rounded ">
+        <div className="form_container p-5 rounded">
           <img className="App-logo mb-4" src={logo} alt="logo" />
           <h3 className="text-center mb-4">Sign Up</h3>
           <form onSubmit={handleSignup}>
-            <div className="mb-2">
-              <input
-                className="form-control"
-                placeholder="First Name"
-                onChange={store.updateSignupForm}
-                value={store.signupForm.firstName}
-                type="text"
-                name="firstName"
-              />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ flex: 1, marginRight: "5px" }}>
+                <div className="mb-2">
+                  <input
+                    className="form-control"
+                    placeholder="First Name"
+                    onChange={store.updateSignupForm}
+                    value={store.signupForm.firstName}
+                    type="text"
+                    name="firstName"
+                  />
+                </div>
+                <p className="text-warning">{formErrors.firstName}</p>
+              </div>
+              <div style={{ flex: 1, marginLeft: "5px" }}>
+                <div className="mb-2">
+                  <input
+                    className="form-control"
+                    placeholder="Last Name"
+                    onChange={store.updateSignupForm}
+                    value={store.signupForm.lastName}
+                    type="text"
+                    name="lastName"
+                  />
+                </div>
+                <p className="text-warning">{formErrors.lastName}</p>
+              </div>
             </div>
-            <p className="text-warning">{formErrors.firstName}</p>
-            <div className="mb-2">
-              <input
-                className="form-control"
-                placeholder="Last Name"
-                onChange={store.updateSignupForm}
-                value={store.signupForm.lastName}
-                type="text"
-                name="lastName"
-              />
-            </div>
-            <p className="text-warning">{formErrors.lastName}</p>
             <div className="mb-2">
               <input
                 className="form-control"
@@ -111,28 +123,34 @@ export default function SignupForm() {
               />
             </div>
             <p className="text-warning">{formErrors.birthday}</p>
-            <div className="mb-2">
-              <input
-                className="form-control"
-                placeholder="Enter Your Email"
-                onChange={store.updateSignupForm}
-                value={store.signupForm.email}
-                type="email"
-                name="email"
-              />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ flex: 1, marginRight: "5px" }}>
+                <div className="mb-2">
+                  <input
+                    className="form-control"
+                    placeholder="Enter Your Email"
+                    onChange={store.updateSignupForm}
+                    value={store.signupForm.email}
+                    type="email"
+                    name="email"
+                  />
+                </div>
+                <p className="text-warning">{formErrors.email}</p>
+              </div>
+              <div style={{ flex: 1, marginLeft: "5px" }}>
+                <div className="mb-2">
+                  <input
+                    className="form-control"
+                    placeholder="Enter the Password"
+                    onChange={store.updateSignupForm}
+                    value={store.signupForm.password}
+                    type="password"
+                    name="password"
+                  />
+                </div>
+                <p className="text-warning">{formErrors.password}</p>
+              </div>
             </div>
-            <p className="text-warning">{formErrors.email}</p>
-            <div className="mb-2">
-              <input
-                className="form-control"
-                placeholder="Enter the Password"
-                onChange={store.updateSignupForm}
-                value={store.signupForm.password}
-                type="password"
-                name="password"
-              />
-            </div>
-            <p className="text-warning">{formErrors.password}</p>
             <div className="d-grid mb-2">
               <button className="btn btn-primary mb-4" type="submit">
                 Register

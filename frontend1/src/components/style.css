@@ -1,7 +1,9 @@
 .form_container {
   width: 30%;
   background-image: linear-gradient(to right, rgb(127, 168, 168), rgb(16, 70, 63) );
+  
 }
+
 
 .playlistform{
   width: 30%;
