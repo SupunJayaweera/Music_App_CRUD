@@ -20,31 +20,10 @@ function App() {
           className="position-absolute 
         top-0 end-0 p-1"
         >
-          <button className="btn">
-            
-              <img
-                className="App-logo mb-4 "
-                style={{ width: "110px", height: "110px", float: "right" }}
-                src={logo}
-                alt="logo"
-              />
-            
-          </button>
+          
         </div>
 
-        {/* <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/signup">Signup</Link>
-          </li> */}
-        {/* <div className="position-absolute top-0 end-0 p-4">
-          <button className="btn btn-danger ">
-            <Link className="link-dark" to="/logout">
-              LOGOUT
-            </Link>
-          </button>
-        </div> */}
+     
 
         <Routes>
           <Route

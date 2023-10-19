@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 // import MusicPlayerPopup from "./MusicPlayerPopup";
 import player from "./images/player.png";
-import image2 from "../components/images/music2.jpg";
+//import image2 from "../components/images/music2.jpg";
 
 function Search() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
-  const [selectedResult, setSelectedResult] = useState(null);
+  //const [selectedResult, setSelectedResult] = useState(null);
   const searchContainerRef = useRef(null); // Added state for suggestions
 
   const handleSearch = async () => {
@@ -186,7 +186,7 @@ function Search() {
       </div>
       {/* Display auto-suggestions */}
       {suggestions.length > 0 && (
-        <div className="bg-secondary bg-gradient p-2 text-dark bg-opacity-75 rounded-3">
+        <div className="bg-secondary p-2 text-dark bg-opacity-75 rounded-1">
           <ul>
             {suggestions.map((suggestion) => (
               <li
@@ -204,7 +204,7 @@ function Search() {
       {/* Display search results */}
       {searchResults.map((result) => (
         <div
-          className="bg-success bg-gradient p-2 text-dark bg-opacity-75 rounded-3"
+          className="bg-light p-1 text-dark bg-opacity-75 rounded-1"
           key={result._id}
           onClick={() => handleResultClick(result)} // Handle result click
         >
@@ -212,13 +212,7 @@ function Search() {
         </div>
       ))}
 
-      {/* Display the MusicPlayerPopup when a result is selected */}
-      {/* {selectedResult && (
-        <MusicPlayerPopup
-          songUrl={selectedResult.songUrl}
-          onClose={() => setSelectedResult(null)} // Add a close handler
-        />
-      )} */}
+      
     </div>
   );
 }

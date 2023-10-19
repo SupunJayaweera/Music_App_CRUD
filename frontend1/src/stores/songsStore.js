@@ -43,7 +43,7 @@ const songsStore = create((set) => ({
   },
 
   createSong: async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // prevent refresh the page when submitting 
     const { createForm, songs } = songsStore.getState();
 
     // Create song
@@ -55,7 +55,7 @@ const songsStore = create((set) => ({
         name: "",
         artist: "",
         genre: "",
-        songUrl: "",
+        songUrl: "", // after submiting clear the form fields 
       },
     });
   },

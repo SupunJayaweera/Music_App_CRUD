@@ -60,6 +60,8 @@ export default function SignupForm() {
 
     if (!values.password) {
       errors.password = "Password is required";
+    } else if (values.password.length < 6) {
+      errors.password = "Password should be at least 6 characters long";
     }
 
     return errors;
@@ -96,7 +98,7 @@ export default function SignupForm() {
                     name="firstName"
                   />
                 </div>
-                <p className="text-warning">{formErrors.firstName}</p>
+                <p style={{color : '#ff0000'}}>{formErrors.firstName}</p>
               </div>
               <div style={{ flex: 1, marginLeft: "5px" }}>
                 <div className="mb-2">
@@ -109,7 +111,7 @@ export default function SignupForm() {
                     name="lastName"
                   />
                 </div>
-                <p className="text-warning">{formErrors.lastName}</p>
+                <p style={{color : '#ff0000'}}>{formErrors.lastName}</p>
               </div>
             </div>
             <div className="mb-2">
@@ -122,7 +124,7 @@ export default function SignupForm() {
                 name="birthday"
               />
             </div>
-            <p className="text-warning">{formErrors.birthday}</p>
+            <p style={{color : '#ff0000'}}>{formErrors.birthday}</p>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div style={{ flex: 1, marginRight: "5px" }}>
                 <div className="mb-2">
@@ -135,7 +137,7 @@ export default function SignupForm() {
                     name="email"
                   />
                 </div>
-                <p className="text-warning">{formErrors.email}</p>
+                <p style={{color : '#ff0000'}}>{formErrors.email}</p>
               </div>
               <div style={{ flex: 1, marginLeft: "5px" }}>
                 <div className="mb-2">
@@ -148,7 +150,7 @@ export default function SignupForm() {
                     name="password"
                   />
                 </div>
-                <p className="text-warning">{formErrors.password}</p>
+                <p style={{color : '#ff0000'}}>{formErrors.password}</p>
               </div>
             </div>
             <div className="d-grid mb-2">

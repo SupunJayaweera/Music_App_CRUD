@@ -10,18 +10,18 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   const [formErrors, setFormErrors] = useState({ email: "", password: "" });
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [loginError, setLoginError] = useState("");
+  // used to store validation errors for the email and password input fields.
+  //const [isSubmit, setIsSubmit] = useState(false); // flag to indicate if the form has been submitted.
+  const [loginError, setLoginError] = useState(""); // used to display an error message if the login process fails.
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // prevent the auto refresh when submiting the form
     const errors = validate(store.loginForm);
     setFormErrors(errors);
 
     if (Object.values(errors).every((error) => error === "")) {
       try {
         await store.login();
-
         // Navigate on successful login
         navigate("/");
       } catch (error) {
@@ -47,6 +47,8 @@ export default function LoginForm() {
 
     if (!values.password) {
       errors.password = "Password is required";
+    } else if (values.password.length < 6) {
+      errors.password = "Password should be at least 6 characters long";
     }
 
     return errors;
@@ -81,7 +83,7 @@ export default function LoginForm() {
                 name="email"
               />
             </div>
-            <p className="text-warning ">{formErrors.email}</p>
+            <p style={{color : '#ff0000'}}>{formErrors.email}</p>
             <div className="mb-2">
               <input
                 className="form-control"
@@ -92,8 +94,8 @@ export default function LoginForm() {
                 name="password"
               />
             </div>
-            <p className="text-warning">{formErrors.password}</p>
-            <p className="text-warning">{loginError}</p>
+            <p style={{color : '#ff0000'}}>{formErrors.password}</p>
+            <p style={{color : '#ff0000'}}>{loginError}</p>
             <div className="d-grid">
               <button className="btn btn-primary mb-4" type="submit">
                 Login
