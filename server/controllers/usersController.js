@@ -8,7 +8,7 @@ async function signup(req, res) {
     const { firstName, lastName, birthday, email, password } = req.body;
 
     // Hash password
-    const hashedPassword = bcrypt.hashSync(password, 8); // 8 means how many times the encryption happen
+    const hashedPassword = bcrypt.hashSync(password, 10); // 10 means how many times the encryption happen
 
     // Check if any of the required parameters are missing
     if (!firstName || !lastName || !birthday || !email || !password) {
@@ -45,7 +45,7 @@ async function login(req, res) {
       return res.status(401).json({ error: "Email or password is incorrect" });
     }
 
-    // Compare sent-in password with the found user's password hash
+    // Compare sent in password with the found user's password hash
     const passwordMatch = bcrypt.compareSync(password, user.password);
 
     if (!passwordMatch) {
@@ -53,7 +53,7 @@ async function login(req, res) {
     }
 
     // Create a JWT token
-    const exp = Date.now() + 1000 * 60 * 60 * 24 * 30; // one month
+    const exp = Date.now() + 1000 * 60 * 60 * 24 * 7; // 7 days
     const token = jwt.sign({ sub: user._id, exp }, process.env.SECRET);
 
     // Send the cookie

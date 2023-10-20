@@ -5,16 +5,15 @@ const Header = () => {
   return (
     <header className="header">
       <nav className="navbar navbar-expand-lg navbar-light bg-dark bg-gradient text-light">
-
-        
-        <img
-          src={newlogo}
-          alt="Your Logo"
-          width="40px"
-          height="40px"
-          className="p-0"
-        />
-
+        <a href="/" className="navbar-brand">
+          <img
+            src={newlogo}
+            alt="Your Logo"
+            width="40px"
+            height="40px"
+            className="p-0"
+          />
+        </a>
         <button
           className="navbar-toggler"
           type="button"
@@ -26,11 +25,11 @@ const Header = () => {
         ></button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" href="#">
                 <h6 className="text-light">About</h6>
               </a>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a className="nav-link" href="http://localhost:3001/login">
                 <h6 className="text-light">Login</h6>

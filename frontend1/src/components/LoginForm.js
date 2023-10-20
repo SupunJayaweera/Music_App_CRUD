@@ -11,7 +11,7 @@ export default function LoginForm() {
 
   const [formErrors, setFormErrors] = useState({ email: "", password: "" });
   // used to store validation errors for the email and password input fields.
-  //const [isSubmit, setIsSubmit] = useState(false); // flag to indicate if the form has been submitted.
+
   const [loginError, setLoginError] = useState(""); // used to display an error message if the login process fails.
 
   const handleLogin = async (e) => {

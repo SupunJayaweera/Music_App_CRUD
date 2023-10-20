@@ -10,7 +10,7 @@ async function requireAuth(req, res, next) {
     const decoded = jwt.verify(token, process.env.SECRET);
 
     // Check expiration
-    if (Date.now() > decoded.exp) return res.sendStatus(401);
+    if (Date.now() > decoded.exp) return res.sendStatus(401); //  401 Unauthorized response 
 
     // Find user using decoded sub
     const user = await User.findById(decoded.sub);

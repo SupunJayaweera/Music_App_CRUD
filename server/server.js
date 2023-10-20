@@ -5,10 +5,10 @@ if (process.env.NODE_ENV != "production") {
 
 // import dependancies
 const express = require("express");
+
 const connectToDb = require("./config/connectToDb");
 const songsController = require("./controllers/songsController");
 const usersController = require("./controllers/usersController");
-// const Song = require('./models/song'); 
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const requireAuth = require("./middleware/requireAuth");
